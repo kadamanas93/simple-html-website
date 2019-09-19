@@ -2,7 +2,7 @@
 pipeline:
   gcr:
     image: plugins/gcr
-    registry: gcr.io/private-47
+    registry: gcr.io/html-test-253411
     repo: simple-html
     tags:
       - "${DRONE_TAG##v}"
@@ -10,9 +10,6 @@ pipeline:
       - latest
     json_key:
       from_secret: gcr_credentials
-    when:
-      event: tag
-      branch: master
   
   deploy:
     image: quay.io/ipedrazas/drone-helm
@@ -20,10 +17,12 @@ pipeline:
     chart: ./charts/simple-html
     release: simple-html
     namespace: master
-    secrets: [api_server, kubernetes_token, gcr_repo]
-    values: image.tag=${DRONE_COMMIT_SHA}
+    secrets: [api_server, kubernetes_token]
+    values: 
+    - image.tag=${DRONE_TAG##v}
+    - image.registry=gcr.io/html-test-253411
     wait: true
-    when:
-      event: tag
-      branch: master
 
+  trigger:
+    event:
+    - tag

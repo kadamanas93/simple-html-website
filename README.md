@@ -1,5 +1,7 @@
 # simple-html-website
 
+[![Build Status](https://cloud.drone.io/api/badges/kadamanas93/simple-html-website/status.svg)](https://cloud.drone.io/kadamanas93/simple-html-website)
+
 ## Requirements
 
 Create an html website with a static webpage with 4 features:

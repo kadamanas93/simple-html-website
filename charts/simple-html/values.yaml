@@ -5,7 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: gcr.io/nuid-211819/simple-html
+  registry: gcr.io/private-47
+  repository: simple-html
   tag: 1.0.1
   pullPolicy: Always
 
@@ -23,7 +24,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: simple-html.ultinuid.com
+    - host: simple-html.simpletest.com
       paths:
         - /
 

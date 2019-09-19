@@ -1,0 +1,14 @@
+---
+kind: pipeline
+name: default
+
+steps:
+- name: publish
+  image: plugins/gcr
+  settings:
+    registry:
+      from_secret: gcr_repo
+    repo: simple-html
+    tags: latest
+    json_key: >
+      from_secret: gcr_credentials

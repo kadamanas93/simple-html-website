@@ -10,6 +10,9 @@ pipeline:
       - latest
     json_key:
       from_secret: gcr_credentials
+    when:
+      event: tag
+      branch: master
   
   deploy:
     image: quay.io/ipedrazas/drone-helm
@@ -22,7 +25,7 @@ pipeline:
     - image.tag=${DRONE_TAG##v}
     - image.registry=gcr.io/html-test-253411
     wait: true
+    when:
+      event: tag
+      branch: master
 
-  trigger:
-    event:
-    - tag

@@ -10,5 +10,5 @@ steps:
       from_secret: gcr_repo
     repo: simple-html
     tags: latest
-    json_key: >
+    json_key:
       from_secret: gcr_credentials

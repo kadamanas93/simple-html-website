@@ -1,14 +1,26 @@
 ---
-kind: pipeline
-name: default
-
-steps:
-- name: publish
-  image: plugins/gcr
-  settings:
+pipeline:
+  gcr:
+    image: plugins/gcr
     registry:
       from_secret: gcr_repo
     repo: simple-html
-    tags: latest
+    tags: ${DRONE_COMMIT_SHA}
     json_key:
       from_secret: gcr_credentials
+    when:
+      event: push
+      branch: master
+  
+  deploy:
+    image: quay.io/ipedrazas/drone-helm
+    skip_tls_verify: true
+    chart: ./charts/simple-html
+    release: simple-html
+    namespace: master
+    secrets: [api_server, kubernetes_token]
+    values: image.tag=${DRONE_COMMIT_SHA}
+    when:
+      event: push
+      branch: master
+
